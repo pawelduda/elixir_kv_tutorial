@@ -24,6 +24,8 @@ defmodule KV.Bucket do
   Deletes a `key` from the `bucket` and returns its `value`.
   """
   def delete(bucket, key) do
-    Agent.get_and_update(bucket, &Map.pop(&1, key))
+    Agent.get_and_update(bucket, fn(dict) ->
+      Map.pop(dict, key)
+    end)
   end
 end
